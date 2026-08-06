@@ -6,6 +6,7 @@ import com.antoinevignes.missionmanagement.entity.aircraft.Aircraft;
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftAlreadyExistsException;
 import com.antoinevignes.missionmanagement.mapper.AircraftMapper;
 import com.antoinevignes.missionmanagement.repository.AircraftRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,11 @@ public class AircraftService {
     Aircraft savedAircraft = aircraftRepository.save(aircraft);
 
     return aircraftMapper.toResponse(savedAircraft);
+  }
+
+  public List<AircraftResponse> listAircraft() {
+    List<Aircraft> aircraft = aircraftRepository.findAll();
+
+    return aircraft.stream().map(aircraftMapper::toResponse).toList();
   }
 }
