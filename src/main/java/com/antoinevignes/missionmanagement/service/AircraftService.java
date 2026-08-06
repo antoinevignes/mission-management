@@ -16,7 +16,7 @@ public class AircraftService {
   private final AircraftRepository aircraftRepository;
   private final AircraftMapper aircraftMapper;
 
-  public AircraftResponse create(CreateAircraftRequest request) {
+  public AircraftResponse createAircraft(CreateAircraftRequest request) {
 
     if (aircraftRepository.existsByRegistration(request.registration())) {
       throw new AircraftAlreadyExistsException(
