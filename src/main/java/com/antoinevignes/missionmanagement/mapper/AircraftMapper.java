@@ -4,6 +4,7 @@ import com.antoinevignes.missionmanagement.dto.aircraft.AircraftResponse;
 import com.antoinevignes.missionmanagement.dto.aircraft.CreateAircraftRequest;
 import com.antoinevignes.missionmanagement.entity.aircraft.Aircraft;
 import com.antoinevignes.missionmanagement.entity.aircraft.AircraftStatus;
+import java.util.Locale;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,12 +12,12 @@ public class AircraftMapper {
 
   public Aircraft toEntity(CreateAircraftRequest request) {
     return Aircraft.builder()
-        .registration(request.registration())
+        .registration(request.registration().toUpperCase(Locale.ROOT))
         .name(request.name())
         .type(request.type())
         .manufacturer(request.manufacturer())
         .model(request.model())
-        .serialNumber(request.serialNumber())
+        .serialNumber(request.serialNumber().toUpperCase(Locale.ROOT))
         .status(AircraftStatus.AVAILABLE)
         .maxFlightTime(request.maxFlightTime())
         .maxPayload(request.maxPayload())

@@ -9,4 +9,8 @@ public interface AircraftRepository extends JpaRepository<Aircraft, UUID> {
   boolean existsByRegistration(String registration);
 
   boolean existsBySerialNumber(String serialNumber);
+
+  boolean existsByRegistrationAndIdNot(String registration, UUID id);
+
+  boolean existsBySerialNumberAndIdNot(String serialNumber, UUID id);
 }
