@@ -4,9 +4,11 @@ import com.antoinevignes.missionmanagement.dto.aircraft.AircraftResponse;
 import com.antoinevignes.missionmanagement.dto.aircraft.CreateAircraftRequest;
 import com.antoinevignes.missionmanagement.entity.aircraft.Aircraft;
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftAlreadyExistsException;
+import com.antoinevignes.missionmanagement.exception.aircraft.AircraftNotFoundException;
 import com.antoinevignes.missionmanagement.mapper.AircraftMapper;
 import com.antoinevignes.missionmanagement.repository.AircraftRepository;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +39,19 @@ public class AircraftService {
   }
 
   public List<AircraftResponse> listAircraft() {
+
     List<Aircraft> aircraft = aircraftRepository.findAll();
 
     return aircraft.stream().map(aircraftMapper::toResponse).toList();
+  }
+
+  public AircraftResponse getAircraftById(UUID id) {
+    Aircraft aircraft =
+        aircraftRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new AircraftNotFoundException("Aircraft with id '" + id + "' not found."));
+
+    return aircraftMapper.toResponse(aircraft);
   }
 }
