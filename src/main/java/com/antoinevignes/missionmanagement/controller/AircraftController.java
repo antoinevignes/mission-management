@@ -48,4 +48,12 @@ public class AircraftController {
 
     return ResponseEntity.ok(response);
   }
+
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<Void> deleteAircraftById(@PathVariable UUID id) {
+
+    aircraftService.deleteAircraftById(id);
+
+    return ResponseEntity.noContent().build();
+  }
 }

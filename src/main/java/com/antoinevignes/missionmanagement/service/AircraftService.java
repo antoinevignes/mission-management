@@ -99,4 +99,15 @@ public class AircraftService {
 
     return aircraftMapper.toResponse(savedAircraft);
   }
+
+  //  DELETE AIRCRAFT
+  public void deleteAircraftById(UUID id) {
+    Aircraft aircraft =
+        aircraftRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new AircraftNotFoundException("Aircraft with id '" + id + "' not found."));
+
+    aircraftRepository.delete(aircraft);
+  }
 }
