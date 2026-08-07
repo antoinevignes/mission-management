@@ -1,6 +1,7 @@
 package com.antoinevignes.missionmanagement.exception;
 
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftAlreadyExistsException;
+import com.antoinevignes.missionmanagement.exception.aircraft.AircraftNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -50,5 +51,21 @@ public class GlobalExceptionHandler {
             errors);
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+  }
+
+  @ExceptionHandler(AircraftNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleAircraftNotFound(
+      AircraftNotFoundException ex, HttpServletRequest request) {
+
+    ErrorResponse response =
+        new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.getReasonPhrase(),
+            ex.getMessage(),
+            request.getRequestURI(),
+            null);
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
   }
 }
