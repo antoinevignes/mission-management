@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+  //  AIRCRAFT ALREADY EXISTS
   @ExceptionHandler(AircraftAlreadyExistsException.class)
   public ResponseEntity<ErrorResponse> handleAircraftAlreadyExists(
       AircraftAlreadyExistsException ex, HttpServletRequest request) {
@@ -31,6 +32,7 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
   }
 
+  //  BAD REQUEST
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> handleValidationException(
       MethodArgumentNotValidException ex, HttpServletRequest request) {
@@ -53,6 +55,7 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
   }
 
+  //  AIRCRAFT NOT FOUND
   @ExceptionHandler(AircraftNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleAircraftNotFound(
       AircraftNotFoundException ex, HttpServletRequest request) {
