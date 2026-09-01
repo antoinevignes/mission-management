@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Locale;
 
 public record CreateOperatorRequest(
     @NotBlank(message = ERROR_FIRST_NAME_REQUIRED) String firstName,
@@ -14,6 +15,14 @@ public record CreateOperatorRequest(
     String phone,
     @NotBlank(message = ERROR_EMAIL_REQUIRED) @Email(message = ERROR_EMAIL_INVALID) String email,
     @NotNull(message = ERROR_STATUS_REQUIRED) OperatorStatus status) {
+
+  public CreateOperatorRequest {
+    firstName = firstName.strip();
+    lastName = lastName.strip();
+    licenseNumber = licenseNumber.toUpperCase(Locale.ROOT).strip();
+    phone = phone == null ? null : phone.strip();
+    email = email.strip();
+  }
 
   private static final String ERROR_FIRST_NAME_REQUIRED = "First name is required";
 

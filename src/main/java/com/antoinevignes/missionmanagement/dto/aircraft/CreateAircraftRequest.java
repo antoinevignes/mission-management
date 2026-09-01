@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.Locale;
 
 public record CreateAircraftRequest(
     @NotBlank(message = ERROR_REGISTRATION_REQUIRED) String registration,
@@ -19,6 +20,14 @@ public record CreateAircraftRequest(
     @NotNull(message = ERROR_MAXIMUM_PAYLOAD_REQUIRED)
         @Positive(message = ERROR_MAXIMUM_PAYLOAD_POSITIVE)
         BigDecimal maxPayload) {
+
+  public CreateAircraftRequest {
+    registration = registration.toUpperCase(Locale.ROOT).strip();
+    name = name.strip();
+    manufacturer = manufacturer.strip();
+    model = model.strip();
+    serialNumber = serialNumber.toUpperCase(Locale.ROOT).strip();
+  }
 
   private static final String ERROR_REGISTRATION_REQUIRED = "Registration is required";
 

@@ -2,7 +2,6 @@ package com.antoinevignes.missionmanagement.controller;
 
 import com.antoinevignes.missionmanagement.dto.aircraft.AircraftResponse;
 import com.antoinevignes.missionmanagement.dto.aircraft.CreateAircraftRequest;
-import com.antoinevignes.missionmanagement.dto.aircraft.UpdateAircraftRequest;
 import com.antoinevignes.missionmanagement.service.AircraftService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -42,7 +41,7 @@ public class AircraftController {
 
   @PutMapping(path = "/{id}")
   public ResponseEntity<AircraftResponse> updateAircraftById(
-      @PathVariable UUID id, @Valid @RequestBody UpdateAircraftRequest request) {
+      @PathVariable UUID id, @Valid @RequestBody CreateAircraftRequest request) {
 
     AircraftResponse response = aircraftService.updateAircraftById(id, request);
 

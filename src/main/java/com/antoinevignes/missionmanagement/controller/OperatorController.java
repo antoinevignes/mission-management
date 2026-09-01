@@ -2,7 +2,6 @@ package com.antoinevignes.missionmanagement.controller;
 
 import com.antoinevignes.missionmanagement.dto.operator.CreateOperatorRequest;
 import com.antoinevignes.missionmanagement.dto.operator.OperatorResponse;
-import com.antoinevignes.missionmanagement.dto.operator.UpdateOperatorRequest;
 import com.antoinevignes.missionmanagement.service.OperatorService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -42,7 +41,7 @@ public class OperatorController {
 
   @PutMapping(path = "/{id}")
   public ResponseEntity<OperatorResponse> updateOperatorById(
-      @PathVariable UUID id, @Valid @RequestBody UpdateOperatorRequest request) {
+      @PathVariable UUID id, @Valid @RequestBody CreateOperatorRequest request) {
 
     OperatorResponse response = operatorService.updateOperatorById(id, request);
 

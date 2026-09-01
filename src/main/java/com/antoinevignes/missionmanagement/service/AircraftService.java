@@ -2,14 +2,12 @@ package com.antoinevignes.missionmanagement.service;
 
 import com.antoinevignes.missionmanagement.dto.aircraft.AircraftResponse;
 import com.antoinevignes.missionmanagement.dto.aircraft.CreateAircraftRequest;
-import com.antoinevignes.missionmanagement.dto.aircraft.UpdateAircraftRequest;
 import com.antoinevignes.missionmanagement.entity.aircraft.Aircraft;
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftAlreadyExistsException;
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftNotFoundException;
 import com.antoinevignes.missionmanagement.mapper.AircraftMapper;
 import com.antoinevignes.missionmanagement.repository.AircraftRepository;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,17 +22,14 @@ public class AircraftService {
   //  CREATE AIRCRAFT
   public AircraftResponse createAircraft(CreateAircraftRequest request) {
 
-    String registration = request.registration().toUpperCase(Locale.ROOT);
-    String serialNumber = request.serialNumber().toUpperCase(Locale.ROOT);
-
-    if (aircraftRepository.existsByRegistration(registration)) {
+    if (aircraftRepository.existsByRegistration(request.registration())) {
       throw new AircraftAlreadyExistsException(
-          "Aircraft with registration '" + registration + "' already exists.");
+          "Aircraft with registration '" + request.registration() + "' already exists.");
     }
 
-    if (aircraftRepository.existsBySerialNumber(serialNumber)) {
+    if (aircraftRepository.existsBySerialNumber(request.serialNumber())) {
       throw new AircraftAlreadyExistsException(
-          "Aircraft with serial number '" + serialNumber + "' already exists.");
+          "Aircraft with serial number '" + request.serialNumber() + "' already exists.");
     }
 
     Aircraft aircraft = aircraftMapper.toEntity(request);
@@ -65,10 +60,7 @@ public class AircraftService {
   }
 
   //  UPDATE AIRCRAFT
-  public AircraftResponse updateAircraftById(UUID id, UpdateAircraftRequest request) {
-
-    String registration = request.registration().toUpperCase(Locale.ROOT);
-    String serialNumber = request.serialNumber().toUpperCase(Locale.ROOT);
+  public AircraftResponse updateAircraftById(UUID id, CreateAircraftRequest request) {
 
     Aircraft aircraft =
         aircraftRepository
@@ -76,24 +68,17 @@ public class AircraftService {
             .orElseThrow(
                 () -> new AircraftNotFoundException("Aircraft with id '" + id + "' not found."));
 
-    if (aircraftRepository.existsByRegistrationAndIdNot(registration, id)) {
+    if (aircraftRepository.existsByRegistrationAndIdNot(request.registration(), id)) {
       throw new AircraftAlreadyExistsException(
-          "Aircraft with registration '" + registration + "' already exists.");
+          "Aircraft with registration '" + request.registration() + "' already exists.");
     }
 
-    if (aircraftRepository.existsBySerialNumberAndIdNot(serialNumber, id)) {
+    if (aircraftRepository.existsBySerialNumberAndIdNot(request.serialNumber(), id)) {
       throw new AircraftAlreadyExistsException(
-          "Aircraft with serial number '" + serialNumber + "' already exists.");
+          "Aircraft with serial number '" + request.serialNumber() + "' already exists.");
     }
 
-    aircraft.setRegistration(registration);
-    aircraft.setName(request.name());
-    aircraft.setType(request.type());
-    aircraft.setManufacturer(request.manufacturer());
-    aircraft.setModel(request.model());
-    aircraft.setSerialNumber(serialNumber);
-    aircraft.setMaxFlightTime(request.maxFlightTime());
-    aircraft.setMaxPayload(request.maxPayload());
+    aircraftMapper.update(aircraft, request);
 
     Aircraft savedAircraft = aircraftRepository.save(aircraft);
 

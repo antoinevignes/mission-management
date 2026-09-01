@@ -2,14 +2,12 @@ package com.antoinevignes.missionmanagement.service;
 
 import com.antoinevignes.missionmanagement.dto.operator.CreateOperatorRequest;
 import com.antoinevignes.missionmanagement.dto.operator.OperatorResponse;
-import com.antoinevignes.missionmanagement.dto.operator.UpdateOperatorRequest;
 import com.antoinevignes.missionmanagement.entity.operator.Operator;
 import com.antoinevignes.missionmanagement.exception.operator.OperatorAlreadyExistsException;
 import com.antoinevignes.missionmanagement.exception.operator.OperatorNotFoundException;
 import com.antoinevignes.missionmanagement.mapper.OperatorMapper;
 import com.antoinevignes.missionmanagement.repository.OperatorRepository;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,11 +22,9 @@ public class OperatorService {
   //  CREATE OPERATOR
   public OperatorResponse createOperator(CreateOperatorRequest request) {
 
-    String licenseNumber = request.licenseNumber().toUpperCase(Locale.ROOT);
-
-    if (operatorRepository.existsByLicenseNumber(licenseNumber)) {
+    if (operatorRepository.existsByLicenseNumber(request.licenseNumber())) {
       throw new OperatorAlreadyExistsException(
-          "Operator with license number '" + licenseNumber + "' already exists.");
+          "Operator with license number '" + request.licenseNumber() + "' already exists.");
     }
 
     Operator operator = operatorMapper.toEntity(request);
@@ -59,9 +55,7 @@ public class OperatorService {
   }
 
   //  UPDATE OPERATOR
-  public OperatorResponse updateOperatorById(UUID id, UpdateOperatorRequest request) {
-
-    String licenseNumber = request.licenseNumber().toUpperCase(Locale.ROOT);
+  public OperatorResponse updateOperatorById(UUID id, CreateOperatorRequest request) {
 
     Operator operator =
         operatorRepository
@@ -69,18 +63,12 @@ public class OperatorService {
             .orElseThrow(
                 () -> new OperatorNotFoundException("Operator with id '" + id + "' not found."));
 
-    if (operatorRepository.existsByLicenseNumberAndIdNot(licenseNumber, id)) {
+    if (operatorRepository.existsByLicenseNumberAndIdNot(request.licenseNumber(), id)) {
       throw new OperatorAlreadyExistsException(
-          "Operator with license number '" + licenseNumber + "' already exists.");
+          "Operator with license number '" + request.licenseNumber() + "' already exists.");
     }
 
-    operator.setFirstName(request.firstName());
-    operator.setLastName(request.lastName());
-    operator.setLicenseNumber(licenseNumber);
-    operator.setLicenseExpiration(request.licenseExpiration());
-    operator.setPhone(request.phone());
-    operator.setEmail(request.email());
-    operator.setStatus(request.status());
+    operatorMapper.update(operator, request);
 
     Operator savedOperator = operatorRepository.save(operator);
 

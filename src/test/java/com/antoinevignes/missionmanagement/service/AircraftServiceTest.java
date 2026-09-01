@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 
 import com.antoinevignes.missionmanagement.dto.aircraft.AircraftResponse;
 import com.antoinevignes.missionmanagement.dto.aircraft.CreateAircraftRequest;
-import com.antoinevignes.missionmanagement.dto.aircraft.UpdateAircraftRequest;
 import com.antoinevignes.missionmanagement.entity.aircraft.Aircraft;
 import com.antoinevignes.missionmanagement.entity.aircraft.AircraftStatus;
 import com.antoinevignes.missionmanagement.entity.aircraft.AircraftType;
@@ -60,8 +59,8 @@ class AircraftServiceTest {
         BigDecimal.valueOf(9000));
   }
 
-  private UpdateAircraftRequest updateAircraftRequest() {
-    return new UpdateAircraftRequest(
+  private CreateAircraftRequest updateAircraftRequest() {
+    return new CreateAircraftRequest(
         "f-hxyz",
         "Nouvelle Gribouille",
         AircraftType.FIXED_WING,
@@ -208,28 +207,24 @@ class AircraftServiceTest {
 
     UUID id = UUID.randomUUID();
     Aircraft aircraft = createAircraft(id);
-    UpdateAircraftRequest request = updateAircraftRequest();
+    CreateAircraftRequest request = updateAircraftRequest();
     AircraftResponse expectedResponse = createAircraftResponse(aircraft);
 
     when(aircraftRepository.findById(id)).thenReturn(Optional.of(aircraft));
     when(aircraftRepository.existsByRegistrationAndIdNot("F-HXYZ", id)).thenReturn(false);
     when(aircraftRepository.existsBySerialNumberAndIdNot("XYZ789", id)).thenReturn(false);
+    when(aircraftMapper.update(aircraft, request)).thenReturn(aircraft);
     when(aircraftRepository.save(aircraft)).thenReturn(aircraft);
     when(aircraftMapper.toResponse(aircraft)).thenReturn(expectedResponse);
 
     AircraftResponse response = aircraftService.updateAircraftById(id, request);
 
     assertThat(response).isEqualTo(expectedResponse);
-    assertThat(aircraft.getRegistration()).isEqualTo("F-HXYZ");
-    assertThat(aircraft.getName()).isEqualTo("Nouvelle Gribouille");
-    assertThat(aircraft.getModel()).isEqualTo("A321");
-    assertThat(aircraft.getSerialNumber()).isEqualTo("XYZ789");
-    assertThat(aircraft.getMaxFlightTime()).isEqualTo(12);
-    assertThat(aircraft.getMaxPayload()).isEqualByComparingTo("9500");
 
     verify(aircraftRepository).findById(id);
     verify(aircraftRepository).existsByRegistrationAndIdNot("F-HXYZ", id);
     verify(aircraftRepository).existsBySerialNumberAndIdNot("XYZ789", id);
+    verify(aircraftMapper).update(aircraft, request);
     verify(aircraftRepository).save(aircraft);
     verify(aircraftMapper).toResponse(aircraft);
   }
@@ -240,7 +235,7 @@ class AircraftServiceTest {
 
     UUID id = UUID.randomUUID();
     Aircraft aircraft = createAircraft(id);
-    UpdateAircraftRequest request = updateAircraftRequest();
+    CreateAircraftRequest request = updateAircraftRequest();
 
     when(aircraftRepository.findById(id)).thenReturn(Optional.of(aircraft));
     when(aircraftRepository.existsByRegistrationAndIdNot("F-HXYZ", id)).thenReturn(true);
@@ -260,7 +255,7 @@ class AircraftServiceTest {
 
     UUID id = UUID.randomUUID();
     Aircraft aircraft = createAircraft(id);
-    UpdateAircraftRequest request = updateAircraftRequest();
+    CreateAircraftRequest request = updateAircraftRequest();
 
     when(aircraftRepository.findById(id)).thenReturn(Optional.of(aircraft));
     when(aircraftRepository.existsByRegistrationAndIdNot("F-HXYZ", id)).thenReturn(false);
