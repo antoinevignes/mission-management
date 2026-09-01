@@ -2,8 +2,11 @@ package com.antoinevignes.missionmanagement.entity.operator;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
@@ -37,4 +40,12 @@ public class Operator {
   @Enumerated(value = EnumType.STRING)
   @Column(nullable = false)
   private OperatorStatus status;
+
+  @CreationTimestamp
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 }

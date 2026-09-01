@@ -44,6 +44,8 @@ public class OperatorMapper {
         operator.getLicenseExpiration(),
         operator.getPhone(),
         operator.getEmail(),
-        operator.getStatus());
+        operator.getStatus(),
+        operator.getCreatedAt(),
+        operator.getUpdatedAt());
   }
 }
