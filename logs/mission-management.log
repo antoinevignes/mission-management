@@ -1,0 +1,96 @@
+2026-10-20 22:46:17.835 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-10-20 22:46:17.855 INFO  [restartedMain] c.a.m.MissionManagementApplication - Starting MissionManagementApplication using Java 21.0.12 with PID 15868 (/Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management/target/classes started by antoinevignes in /Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management)
+2026-10-20 22:46:17.856 INFO  [restartedMain] c.a.m.MissionManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-20 22:46:17.872 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-20 22:46:17.873 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-20 22:46:17.878 INFO  [restartedMain] o.s.b.d.c.l.DockerComposeLifecycleManager - Using Docker Compose file /Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management/compose.yaml
+2026-10-20 22:46:18.092 ERROR [restartedMain] o.s.boot.SpringApplication - Application run failed
+org.springframework.boot.docker.compose.core.DockerNotRunningException: Docker is not running
+	at org.springframework.boot.docker.compose.core.DockerCli$DockerCommands.getDockerCommand(DockerCli.java:158)
+	at org.springframework.boot.docker.compose.core.DockerCli$DockerCommands.<init>(DockerCli.java:141)
+	at org.springframework.boot.docker.compose.core.DockerCli.lambda$new$0(DockerCli.java:67)
+	at java.base/java.util.HashMap.computeIfAbsent(HashMap.java:1228)
+	at org.springframework.boot.docker.compose.core.DockerCli.<init>(DockerCli.java:66)
+	at org.springframework.boot.docker.compose.core.DockerCompose.get(DockerCompose.java:147)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeLifecycleManager.getDockerCompose(DockerComposeLifecycleManager.java:166)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeLifecycleManager.start(DockerComposeLifecycleManager.java:114)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeListener.onApplicationEvent(DockerComposeListener.java:53)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeListener.onApplicationEvent(DockerComposeListener.java:35)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:180)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:173)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:151)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:137)
+	at org.springframework.boot.context.event.EventPublishingRunListener.contextLoaded(EventPublishingRunListener.java:99)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$contextLoaded$0(SpringApplicationRunListeners.java:74)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:123)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:117)
+	at org.springframework.boot.SpringApplicationRunListeners.contextLoaded(SpringApplicationRunListeners.java:74)
+	at org.springframework.boot.SpringApplication.prepareContext(SpringApplication.java:418)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:320)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.antoinevignes.missionmanagement.MissionManagementApplication.main(MissionManagementApplication.java:11)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52)
+Caused by: org.springframework.boot.docker.compose.core.ProcessExitException: 'docker version --format {{.Client.Version}}' failed with exit code 1.
+
+Stdout:
+27.5.1
+
+
+Stderr:
+Cannot connect to the Docker daemon at unix:///Users/antoinevignes/.docker/run/docker.sock. Is the docker daemon running?
+
+	at org.springframework.boot.docker.compose.core.ProcessRunner.run(ProcessRunner.java:98)
+	at org.springframework.boot.docker.compose.core.ProcessRunner.run(ProcessRunner.java:76)
+	at org.springframework.boot.docker.compose.core.DockerCli$DockerCommands.getDockerCommand(DockerCli.java:147)
+	... 28 common frames omitted
+2026-10-20 22:46:51.697 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-10-20 22:46:51.718 INFO  [restartedMain] c.a.m.MissionManagementApplication - Starting MissionManagementApplication using Java 21.0.12 with PID 16412 (/Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management/target/classes started by antoinevignes in /Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management)
+2026-10-20 22:46:51.718 INFO  [restartedMain] c.a.m.MissionManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-20 22:46:51.734 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-20 22:46:51.735 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-20 22:46:51.739 INFO  [restartedMain] o.s.b.d.c.l.DockerComposeLifecycleManager - Using Docker Compose file /Users/antoinevignes/Documents/01-PERSO/JAVA/mission-management/compose.yaml
+2026-10-20 22:46:56.031 INFO  [restartedMain] o.s.b.d.c.l.DockerComposeLifecycleManager - There are already Docker Compose services running, skipping startup
+2026-10-20 22:46:56.298 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-20 22:46:56.315 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 2 JPA repository interfaces.
+2026-10-20 22:46:56.480 INFO  [restartedMain] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-20 22:46:56.486 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-20 22:46:56.487 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-20 22:46:56.487 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-10-20 22:46:56.500 INFO  [restartedMain] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 465 ms
+2026-10-20 22:46:56.579 INFO  [restartedMain] org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-20 22:46:56.603 INFO  [restartedMain] org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.19.Final
+2026-10-20 22:46:56.755 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-20 22:46:56.768 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-10-20 22:46:56.855 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405924e4
+2026-10-20 22:46:56.856 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-10-20 22:46:56.894 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://127.0.0.1:5432/mission_management?ApplicationName=mission-management]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.10
+	Default catalog/schema: mission_management/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-20 22:46:57.236 INFO  [restartedMain] org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-20 22:46:57.275 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-20 22:46:57.305 INFO  [restartedMain] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-20 22:46:57.405 WARN  [restartedMain] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-20 22:46:57.565 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-20 22:46:57.573 INFO  [restartedMain] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-10-20 22:46:57.576 INFO  [restartedMain] c.a.m.MissionManagementApplication - Started MissionManagementApplication in 6.055 seconds (process running for 6.291)
+2026-10-20 22:46:57.577 WARN  [restartedMain] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-20 22:46:57.577 WARN  [restartedMain] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-20 22:49:48.600 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-20 22:49:48.601 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-20 22:49:48.602 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-10-20 22:49:49.090 INFO  [http-nio-8080-exec-3] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 114 ms
+2026-10-20 23:02:36.828 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete

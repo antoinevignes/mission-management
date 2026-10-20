@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Bash(cat .env:*)",
+      "Read(./**/application-prod*)",
+      "Edit(./**/application-prod*)",
+      "Bash(git push:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format-java.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
