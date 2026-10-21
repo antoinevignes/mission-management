@@ -3,8 +3,14 @@ package com.antoinevignes.missionmanagement.controller;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -188,6 +194,7 @@ class OperatorControllerTest {
         .andExpect(jsonPath("$.licenseNumber").value("FR-12345"))
         .andExpect(jsonPath("$.licenseExpiration").value("2028-10-10"))
         .andExpect(jsonPath("$.phone").value("0608947658"))
+        .andExpect(jsonPath("$.email").value("antoine.operator@mail.com"))
         .andExpect(jsonPath("$.status").value("AVAILABLE"));
 
     verify(operatorService).getOperatorById(id);
@@ -385,15 +392,15 @@ class OperatorControllerTest {
 
     String json =
         """
-            {
-              "firstName": "",
-              "lastName": "Vignes",
-              "licenseNumber": "FR-12345",
-              "licenseExpiration": "2028-10-10",
-              "email": "antoine.operator@mail.com",
-              "status": "AVAILABLE"
-            }
-            """;
+        {
+          "firstName": "",
+          "lastName": "Vignes",
+          "licenseNumber": "FR-12345",
+          "licenseExpiration": "2028-10-10",
+          "email": "antoine.operator@mail.com",
+          "status": "AVAILABLE"
+        }
+        """;
 
     mockMvc
         .perform(post("/api/v1/operators").contentType(MediaType.APPLICATION_JSON).content(json))
@@ -412,14 +419,14 @@ class OperatorControllerTest {
 
     String json =
         """
-            {
-              "lastName": "Vignes",
-              "licenseNumber": "FR-12345",
-              "licenseExpiration": "2028-10-10",
-              "email": "antoine.operator@mail.com",
-              "status": "AVAILABLE"
-            }
-            """;
+        {
+          "lastName": "Vignes",
+          "licenseNumber": "FR-12345",
+          "licenseExpiration": "2028-10-10",
+          "email": "antoine.operator@mail.com",
+          "status": "AVAILABLE"
+        }
+        """;
 
     mockMvc
         .perform(post("/api/v1/operators").contentType(MediaType.APPLICATION_JSON).content(json))
