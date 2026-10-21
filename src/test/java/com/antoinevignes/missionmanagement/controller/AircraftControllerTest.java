@@ -111,6 +111,33 @@ class AircraftControllerTest {
     verifyNoInteractions(aircraftService);
   }
 
+  //  HTTP CREATE 400 TEST MISSING REGISTRATION
+  @Test
+  void shouldReturnBadRequestWhenRegistrationIsMissing() throws Exception {
+
+    String json =
+        """
+        {
+          "name": "Gribouille",
+          "type": "FIXED_WING",
+          "manufacturer": "Airbus",
+          "model": "A320",
+          "serialNumber": "abc123",
+          "maxFlightTime": 10,
+          "maxPayload": 9000
+        }
+        """;
+
+    mockMvc
+        .perform(post("/api/v1/aircrafts").contentType(MediaType.APPLICATION_JSON).content(json))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.status").value(400))
+        .andExpect(jsonPath("$.message").value("Validation failed."))
+        .andExpect(jsonPath("$.errors.registration").value("Registration is required"));
+
+    verifyNoInteractions(aircraftService);
+  }
+
   //  TEST GET 200
   @Test
   void shouldListAllAircraft() throws Exception {

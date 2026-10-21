@@ -22,11 +22,16 @@ public record CreateAircraftRequest(
         BigDecimal maxPayload) {
 
   public CreateAircraftRequest {
-    registration = registration.toUpperCase(Locale.ROOT).strip();
-    name = name.strip();
-    manufacturer = manufacturer.strip();
-    model = model.strip();
-    serialNumber = serialNumber.toUpperCase(Locale.ROOT).strip();
+    registration = registration == null ? null : strip(registration.toUpperCase(Locale.ROOT));
+    name = strip(name);
+    manufacturer = strip(manufacturer);
+    model = strip(model);
+    serialNumber = serialNumber == null ? null : strip(serialNumber.toUpperCase(Locale.ROOT));
+  }
+
+  // Null-safe: a missing field must reach @Valid instead of failing deserialization
+  private static String strip(String value) {
+    return value == null ? null : value.strip();
   }
 
   private static final String ERROR_REGISTRATION_REQUIRED = "Registration is required";
