@@ -17,11 +17,16 @@ public record CreateOperatorRequest(
     @NotNull(message = ERROR_STATUS_REQUIRED) OperatorStatus status) {
 
   public CreateOperatorRequest {
-    firstName = firstName.strip();
-    lastName = lastName.strip();
-    licenseNumber = licenseNumber.toUpperCase(Locale.ROOT).strip();
-    phone = phone == null ? null : phone.strip();
-    email = email.strip();
+    firstName = strip(firstName);
+    lastName = strip(lastName);
+    licenseNumber = licenseNumber == null ? null : strip(licenseNumber.toUpperCase(Locale.ROOT));
+    phone = strip(phone);
+    email = strip(email);
+  }
+
+  // Null-safe: a missing field must reach @Valid instead of failing deserialization
+  private static String strip(String value) {
+    return value == null ? null : value.strip();
   }
 
   private static final String ERROR_FIRST_NAME_REQUIRED = "First name is required";
