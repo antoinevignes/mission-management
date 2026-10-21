@@ -2,7 +2,11 @@ package com.antoinevignes.missionmanagement.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.antoinevignes.missionmanagement.dto.operator.CreateOperatorRequest;
 import com.antoinevignes.missionmanagement.dto.operator.OperatorResponse;
@@ -236,7 +240,8 @@ class OperatorServiceTest {
     when(operatorRepository.existsByLicenseNumberAndIdNot("FR-45678", id)).thenReturn(true);
 
     assertThatThrownBy(() -> operatorService.updateOperatorById(id, request))
-        .isInstanceOf(OperatorAlreadyExistsException.class);
+        .isInstanceOf(OperatorAlreadyExistsException.class)
+        .hasMessageContaining("FR-45678");
 
     verify(operatorRepository).findById(id);
     verify(operatorRepository).existsByLicenseNumberAndIdNot("FR-45678", id);
