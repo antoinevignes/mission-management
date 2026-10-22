@@ -2,7 +2,7 @@ package com.antoinevignes.missionmanagement.entity.aircraft;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,17 +43,17 @@ public class Aircraft {
   @Column(nullable = false)
   private AircraftStatus status;
 
-  @Column(name = "max_flight_time", nullable = false)
-  private Integer maxFlightTime;
+  @Column(name = "max_flight_time_minutes", nullable = false)
+  private Integer maxFlightTimeMinutes;
 
-  @Column(name = "max_payload", nullable = false)
-  private BigDecimal maxPayload;
+  @Column(name = "max_payload_kg", nullable = false, precision = 8, scale = 2)
+  private BigDecimal maxPayloadKg;
 
   @CreationTimestamp
-  @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
 
   @UpdateTimestamp
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  @Column(name = "updated_at", nullable = false)
+  private Instant updatedAt;
 }

@@ -10,7 +10,7 @@ description: Rules for timestamps, time zones, durations and physical units (UTC
 - `LocalDate` only for pure calendar dates (e.g. `licenseExpiration`).
 - Set `spring.jpa.properties.hibernate.jdbc.time_zone=UTC` so Hibernate writes UTC regardless of the JVM zone.
 - Use `Duration` for durations, not an `Integer` of unknown unit.
-- Never call `Instant.now()` / `LocalDate.now()` in business code: inject a `Clock` bean, and use `Clock.fixed(...)` in tests.
+- Never call `Instant.now()` / `LocalDate.now()` in business code: inject the `Clock` bean (`config/ClockConfig`, `Clock.systemUTC()`), and use `Clock.fixed(...)` in tests.
 - JSON: ISO-8601 with `Z` (e.g. `2026-10-20T14:30:00Z`).
 
 ## Units
@@ -19,5 +19,3 @@ description: Rules for timestamps, time zones, durations and physical units (UTC
 - Column names follow: `max_payload_kg`, `max_flight_time_minutes`.
 - Weights use `BigDecimal` (no floating point rounding).
 
-## Known debt
-`createdAt`/`updatedAt` are `LocalDateTime` and `Aircraft.maxFlightTime` / `maxPayload` have no unit. Fix with the Flyway step (step 1), when the schema is rewritten anyway.

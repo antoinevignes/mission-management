@@ -1,5 +1,6 @@
 package com.antoinevignes.missionmanagement.controller;
 
+import static org.hamcrest.Matchers.aMapWithSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -123,8 +124,8 @@ class AircraftControllerTest {
           "manufacturer": "Airbus",
           "model": "A320",
           "serialNumber": "abc123",
-          "maxFlightTime": 10,
-          "maxPayload": 9000
+          "maxFlightTimeMinutes": 10,
+          "maxPayloadKg": 9000
         }
         """;
 
@@ -133,6 +134,7 @@ class AircraftControllerTest {
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.status").value(400))
         .andExpect(jsonPath("$.message").value("Validation failed."))
+        .andExpect(jsonPath("$.errors", aMapWithSize(1)))
         .andExpect(jsonPath("$.errors.registration").value("Registration is required"));
 
     verifyNoInteractions(aircraftService);

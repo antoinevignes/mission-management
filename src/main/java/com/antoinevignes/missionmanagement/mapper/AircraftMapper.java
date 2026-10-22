@@ -18,8 +18,8 @@ public class AircraftMapper {
         .model(request.model())
         .serialNumber(request.serialNumber())
         .status(AircraftStatus.AVAILABLE)
-        .maxFlightTime(request.maxFlightTime())
-        .maxPayload(request.maxPayload())
+        .maxFlightTimeMinutes(request.maxFlightTimeMinutes())
+        .maxPayloadKg(request.maxPayloadKg())
         .build();
   }
 
@@ -31,8 +31,8 @@ public class AircraftMapper {
     aircraft.setManufacturer(request.manufacturer());
     aircraft.setModel(request.model());
     aircraft.setSerialNumber(request.serialNumber());
-    aircraft.setMaxFlightTime(request.maxFlightTime());
-    aircraft.setMaxPayload(request.maxPayload());
+    aircraft.setMaxFlightTimeMinutes(request.maxFlightTimeMinutes());
+    aircraft.setMaxPayloadKg(request.maxPayloadKg());
 
     return aircraft;
   }
@@ -47,8 +47,8 @@ public class AircraftMapper {
         aircraft.getModel(),
         aircraft.getSerialNumber(),
         aircraft.getStatus(),
-        aircraft.getMaxFlightTime(),
-        aircraft.getMaxPayload(),
+        aircraft.getMaxFlightTimeMinutes(),
+        aircraft.getMaxPayloadKg(),
         aircraft.getCreatedAt(),
         aircraft.getUpdatedAt());
   }
