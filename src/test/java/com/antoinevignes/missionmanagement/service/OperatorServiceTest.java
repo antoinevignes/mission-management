@@ -16,8 +16,8 @@ import com.antoinevignes.missionmanagement.exception.operator.OperatorAlreadyExi
 import com.antoinevignes.missionmanagement.exception.operator.OperatorNotFoundException;
 import com.antoinevignes.missionmanagement.mapper.OperatorMapper;
 import com.antoinevignes.missionmanagement.repository.OperatorRepository;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,8 +46,8 @@ class OperatorServiceTest {
         .phone("0608947658")
         .email("antoine.operator@mail.com")
         .status(OperatorStatus.AVAILABLE)
-        .createdAt(LocalDateTime.parse("2026-01-01T10:00:00"))
-        .updatedAt(LocalDateTime.parse("2026-01-01T10:00:00"))
+        .createdAt(Instant.parse("2026-01-01T10:00:00Z"))
+        .updatedAt(Instant.parse("2026-01-01T10:00:00Z"))
         .build();
   }
 

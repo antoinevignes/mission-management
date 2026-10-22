@@ -17,7 +17,9 @@ description: JPA/Hibernate and PostgreSQL conventions for mission-management (en
 - Uniqueness checked in the service before saving: `existsBy<Field>` (create), `existsBy<Field>AndIdNot` (update). Keep the DB `unique` constraint as the safety net.
 
 ## Schema
-- Currently `spring.jpa.hibernate.ddl-auto=update` (no migrations). Step 1 replaces it with Flyway (`src/main/resources/db/migration/V<n>__<description>.sql`) and `ddl-auto=validate`.
+- Flyway owns the schema: `src/main/resources/db/migration/V<n>__<description>.sql`. Never edit an applied migration; add a new `V<n+1>`.
+- `ddl-auto=validate`: Hibernate only checks entities against the tables. Column types must match exactly (`varchar(255)` for `String`, `numeric(p,s)` matching `@Column(precision, scale)`, `timestamptz` for `Instant`).
+- Enum columns carry a `CHECK (col IN (...))` constraint: adding an enum value requires a migration.
 - Postgres runs from `compose.yaml`; credentials from `.env` (never read it).
 
 ## Upcoming topics (steps 3, 7)

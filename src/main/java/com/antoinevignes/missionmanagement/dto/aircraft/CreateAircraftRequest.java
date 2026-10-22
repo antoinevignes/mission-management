@@ -16,10 +16,10 @@ public record CreateAircraftRequest(
     @NotBlank(message = ERROR_SERIAL_NUMBER_REQUIRED) String serialNumber,
     @NotNull(message = ERROR_MAXIMUM_FLIGHT_TIME_REQUIRED)
         @Positive(message = ERROR_MAXIMUM_FLIGHT_TIME_POSITIVE)
-        Integer maxFlightTime,
+        Integer maxFlightTimeMinutes,
     @NotNull(message = ERROR_MAXIMUM_PAYLOAD_REQUIRED)
         @Positive(message = ERROR_MAXIMUM_PAYLOAD_POSITIVE)
-        BigDecimal maxPayload) {
+        BigDecimal maxPayloadKg) {
 
   public CreateAircraftRequest {
     registration = registration == null ? null : strip(registration.toUpperCase(Locale.ROOT));

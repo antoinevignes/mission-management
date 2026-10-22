@@ -1,8 +1,8 @@
 package com.antoinevignes.missionmanagement.entity.operator;
 
 import jakarta.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,10 +42,10 @@ public class Operator {
   private OperatorStatus status;
 
   @CreationTimestamp
-  @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
 
   @UpdateTimestamp
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  @Column(name = "updated_at", nullable = false)
+  private Instant updatedAt;
 }

@@ -8,7 +8,7 @@ description: Aviation domain of mission-management (aircraft, operators, mission
 ## Existing entities
 - **Aircraft**: `registration` (unique, uppercase, e.g. `F-HABC`), `serialNumber` (unique, uppercase), `name`, `manufacturer`, `model`,
   `type` (`FIXED_WING`, `ROTARY_WING`, `UAV`), `status` (`AVAILABLE`, `IN_MISSION`, `MAINTENANCE`, `OUT_OF_SERVICE`),
-  `maxFlightTime` and `maxPayload` (units not yet explicit: to rename, see `units-and-time`).
+  `maxFlightTimeMinutes` and `maxPayloadKg`.
 - **Operator** (pilot): `firstName`, `lastName`, `licenseNumber` (unique), `licenseExpiration` (`LocalDate`), `email`, `phone`,
   `status` (`AVAILABLE`, `ON_MISSION`, `OFF_DUTY`).
 - New entities start with a server-set status (`AVAILABLE`), never taken from the request.

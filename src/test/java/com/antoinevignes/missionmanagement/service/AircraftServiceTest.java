@@ -42,8 +42,8 @@ class AircraftServiceTest {
         .model("A320")
         .serialNumber("ABC123")
         .status(AircraftStatus.AVAILABLE)
-        .maxFlightTime(10)
-        .maxPayload(BigDecimal.valueOf(9000))
+        .maxFlightTimeMinutes(10)
+        .maxPayloadKg(BigDecimal.valueOf(9000))
         .build();
   }
 
@@ -81,8 +81,8 @@ class AircraftServiceTest {
         aircraft.getModel(),
         aircraft.getSerialNumber(),
         aircraft.getStatus(),
-        aircraft.getMaxFlightTime(),
-        aircraft.getMaxPayload(),
+        aircraft.getMaxFlightTimeMinutes(),
+        aircraft.getMaxPayloadKg(),
         aircraft.getCreatedAt(),
         aircraft.getUpdatedAt());
   }

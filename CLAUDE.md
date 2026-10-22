@@ -18,9 +18,9 @@ Use quiet mode to keep output short:
 ```
 
 - On test failure, read `target/surefire-reports/<TestClass>.txt` instead of rerunning verbosely.
-- `MissionManagementApplicationTests` (`@SpringBootTest`) loads the full context and needs Postgres running (`docker compose up -d`); the other tests are pure unit/slice tests.
+- `MissionManagementApplicationTests` (`@SpringBootTest`) loads the full context and needs Postgres running (`docker compose up -d`; it sets `spring.docker.compose.skip.in-tests=false` to get the connection from compose); the other tests are pure unit/slice tests.
 - DB credentials come from `.env` (template: `.env.example`). Never read `.env`.
-- Schema is managed by Hibernate `ddl-auto=update` (Flyway planned). Swagger UI: `/swagger-ui.html`. Logs: console + `logs/mission-management.log`.
+- Schema is managed by Flyway (`src/main/resources/db/migration/V<n>__<description>.sql`); Hibernate runs with `ddl-auto=validate`. Swagger UI: `/swagger-ui.html`. Logs: console + `logs/mission-management.log`.
 
 ## Non-negotiable rules
 
