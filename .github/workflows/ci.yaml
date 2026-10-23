@@ -13,7 +13,6 @@ env:
   POSTGRES_PASSWORD: test
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
