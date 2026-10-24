@@ -2,6 +2,8 @@ package com.antoinevignes.missionmanagement.exception;
 
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftAlreadyExistsException;
 import com.antoinevignes.missionmanagement.exception.aircraft.AircraftNotFoundException;
+import com.antoinevignes.missionmanagement.exception.mission.MissionAlreadyExistsException;
+import com.antoinevignes.missionmanagement.exception.mission.MissionNotFoundException;
 import com.antoinevignes.missionmanagement.exception.operator.OperatorAlreadyExistsException;
 import com.antoinevignes.missionmanagement.exception.operator.OperatorNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -95,6 +97,40 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(OperatorNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleOperatorNotFound(
       OperatorNotFoundException ex, HttpServletRequest request) {
+
+    ErrorResponse response =
+        new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.getReasonPhrase(),
+            ex.getMessage(),
+            request.getRequestURI(),
+            null);
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+  }
+
+  //  MISSION ALREADY EXISTS
+  @ExceptionHandler(MissionAlreadyExistsException.class)
+  public ResponseEntity<ErrorResponse> handleMissionAlreadyExists(
+      MissionAlreadyExistsException ex, HttpServletRequest request) {
+
+    ErrorResponse response =
+        new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.getReasonPhrase(),
+            ex.getMessage(),
+            request.getRequestURI(),
+            null);
+
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+  }
+
+  //  MISSION NOT FOUND
+  @ExceptionHandler(MissionNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleMissionNotFound(
+      MissionNotFoundException ex, HttpServletRequest request) {
 
     ErrorResponse response =
         new ErrorResponse(
